@@ -2,5 +2,5 @@ language: python
 python:
   - 3.6
 install:
-  - make
-script: make test
+  - pip install -r requirements-dev.txt
+script: py.test tests
