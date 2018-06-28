@@ -5,7 +5,8 @@ setup(
     description="Universal URL generator.",
     version='1.0.0',
     license='Apache',
+    author='Heureka.cz',
     author_email='vyvoj@heureka.cz',
-    url='git@github.com:heureka/py-url-generator.git',
+    url='https://github.com/heureka/py-url-generator',
     packages=['url_generator']
 )
