@@ -10,7 +10,9 @@ CONFIG_KEYWORDS = [
     '@tld',
     '@path',
     '@query',
-    '@fragment'
+    '@fragment',
+    '@subdomain',
+    '@host_postfix'
 ]
 
 ALLOWED_URL_SCHEMES = [
@@ -86,7 +88,7 @@ class UrlGenerator(object):
         """Joins URL defined by configuration
 
         Args:
-            url_parts (list): like ['@sheme' => 'https, '@host' => 'www.heureka.{tld}', '@path' => 'search' ...]
+            url_parts (dict): like ['@sheme' => 'https, '@host' => 'www.heureka.{tld}', '@path' => 'search' ...]
             query_string (str): like 'q=automobily&offset=2&limit=10'
 
         Returns:
@@ -103,8 +105,15 @@ class UrlGenerator(object):
             raise UrlGeneratorException('Missing required property @host')
 
         host = url_parts['@host'].rstrip('/')
+        subdomain = url_parts.get('@subdomain')
+        host_postfix = url_parts.get('@host_postfix')
 
-        url = "{}://{}".format(scheme, host)
+        url = "{}://{}{}{}".format(
+            scheme,
+            f'{subdomain}.' if subdomain else '',
+            host,
+            f'.{host_postfix}' if host_postfix else ''
+        )
 
         if '@path' in url_parts:
             url += '/{}'.format(url_parts['@path'].lstrip('/'))
