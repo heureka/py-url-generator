@@ -73,6 +73,9 @@ def url_generator():
     ('comparative_condition.conflictive', {'env': 'dev'}, 'http://www.example.dev.czech/outer'),
     ('comparative_condition.conflictive', {'env': 'dev', 'lang': 'pl'}, 'http://www.example.dev.czech/sukanie'),
     ('comparative_condition.conflictive', {'env': 'dev', 'lang': 'cz'}, 'http://www.example.dev.czech/inner'),
+
+    ('subdomain', {'subdomain': 'some-subdomain'}, 'http://some-subdomain.example.com'),
+    ('host_postfix', {}, 'http://some-subdomain.example.com.dev.czech'),
 ])
 def test_get_url(url_generator, path, params, expected):
     actual = url_generator.get_url(path, **params)
